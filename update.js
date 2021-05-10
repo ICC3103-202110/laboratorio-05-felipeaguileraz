@@ -9,6 +9,7 @@ function update(amount, porcentage){
         { BillAmount: amount, Tip: porcentage, Tip1: FinalTip, Total: Total},
         ];
         printTable(testCases);
+    //view(amount, porcentage, FinalTip, Total)
 
 }
 
