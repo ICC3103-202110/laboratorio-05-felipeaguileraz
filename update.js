@@ -1,16 +1,20 @@
-const { printTable } = require('console-table-printer');
 
-function update(amount, porcentage){
-    //traer view()
+function update(amount, porcentage, model){
     var Tip = (amount, porcentage) => amount*(porcentage/100)
     FinalTip = Tip(amount, porcentage)
-    Total = amount + FinalTip
-    const testCases = [
-        { BillAmount: amount, Tip: porcentage, Tip1: FinalTip, Total: Total},
-        ];
-        printTable(testCases);
-    //view(amount, porcentage, FinalTip, Total)
-
+    const addition = (a,b) => a+b
+    Total = addition(Number(amount), Number(FinalTip))
+    
+    return {
+        ...model,
+        BillAmount: amount, 
+        Tip_por: porcentage, 
+        Tip: FinalTip, 
+        Total: Total
+    }
+    
 }
 
-update(1263,12.568)
+module.exports = {
+    update
+}

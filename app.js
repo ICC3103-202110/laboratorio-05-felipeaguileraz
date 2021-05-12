@@ -1,24 +1,30 @@
-"import View from view"
+const {QuestionBill, QuestionTip} = require("./view")
+const {printTable} = require('console-table-printer');
 
-function app(){  //debe ir una variable dentro de app
+function app(state, update, view){
     while (true){
-        "const currentview = view(variable)"  //no se que variable va dentro de view
+        const {model, currentView} = state
+        const {table, Title} = currentView
         console.clear()
-        "console.log(currentview)"
+        console.log(Title)
+        printTable(table)
         console.log()
 
-        var prompt = require("prompt-sync")(); 
-        const amount = prompt("Bill Amount: " )
-        const porcentage = prompt("Tip(%): ")
+        const prompt = require("prompt-sync")(); 
+
+        const amount = prompt(QuestionBill())
+        const porcentage = prompt(QuestionTip())
         
-        "variable = update(amount, porcentage)"            //esta variable
-                                                          //va dentro de view
-        const quit = prompt("Are you finished with the tip (Y/N)? ")
-        if (quit === "Y"){
-            break;
-        }else{
-            continue;
-        }
+        const newtable = update(amount, porcentage, model) 
+        state = {
+            ...state,
+            model: newtable,
+            currentView: view(newtable)
+        }       
+    
     }
 }
-app()
+
+module.exports = { 
+    app
+}

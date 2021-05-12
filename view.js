@@ -1,19 +1,40 @@
 var figlet = require('figlet');
 const chalk = require('chalk');
-const { printTable } = require('console-table-printer');
-figlet("TIP CALCULATOR", function(err, data) {
-    if (err) {
-        console.log('Something went wrong...');
-        console.dir(err);
-        return;
-    }
-    console.log(data)
-});
 
-function view(amount, porcentage, tip, total){
-    const testCases = [
-    { BillAmount: amount, Tip: porcentage, Tip1: tip, Total: total },
-    ];
-    printTable(testCases);
+function Title(){
+    return chalk.red(
+        figlet.textSync(
+            "TIP CALCULATOR",
+            {
+                horizontalLayout: "full",
+                
+            }
+        )
+    )
 }
-view(0, 0, 0, 0)
+
+function QuestionBill(){
+    return ("BillAmount? ")
+}
+
+function QuestionTip(){
+    return ('Tip(%)? ')
+}
+
+function table(model){
+    return [
+    { BillAmount: model.BillAmount, "Tip(%)": model.Tip_por, Tip: model.Tip, Total: model.Total },
+    ];
+}
+function view(model){
+    return {
+        Title: Title(),
+        table: table(model)
+    }
+}
+
+module.exports = {
+    view,
+    QuestionBill,
+    QuestionTip
+}
